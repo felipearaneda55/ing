@@ -26,12 +26,12 @@ require_once ($CFG->dirroot . '/local/proyecto/buscador.php');
 require_once($CFG->dirroot.'/local/proyecto/tabla.php');
 
 global $CFG, $OUTPUT, $DB;
-require_login ();
+require_login (); //login obligado
 $url = new moodle_url ( '/local/proyecto/index.php' );
 $context = context_system::instance (); // context_system::instance();
 $PAGE->set_context ( $context );
 $PAGE->set_url ( $url );
-$PAGE->set_pagelayout ( 'standard' );
+$PAGE->set_pagelayout ( 'standard' ); 
 
 $title = 'busqueda de archivo';
 $PAGE->set_title ( $title );
@@ -41,7 +41,7 @@ echo $OUTPUT->header ();
 echo $OUTPUT->heading ( $title );
 
 
-$buscador = new texbox ( null );
+$buscador = new texbox ( null ); // creacion de buscador
 $buscador->display ();
 
 $resultado= $buscador->get_data();
@@ -53,8 +53,8 @@ echo "No se ha ingresado busqueda";
 else {
 	$archivo= $resultado->archivo;
 	
-	$busqueda= $DB->get_record_sql("SELECT FROM {mdl_resource} WHERE
-			    name='$resultado' AND {course}={course.id}");
+	$busqueda= $DB->get_record_sql("SELECT FROM {local_proyecto_archivo} WHERE
+			    Titulo='$resultado' OR link_archivo='$resultado' OR id='$resultado'");
 	
 	if ($resultado==null ||$resultado==' ')
 		echo "No se poseen archivos";

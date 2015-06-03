@@ -19,7 +19,7 @@
  *
  * @package    local
  * @subpackage proyecto
- * @copyright  2015 Nicolás Díaz Francavila
+ * @copyright  2015 NicolÃ¡s DÃ­az Francavila
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(__FILE__) . '/../../config.php');
@@ -34,10 +34,10 @@ class texbox extends moodleform {
 		$mform->addElement('text', 'usuario', 'Buscar Archivo:');
 		$mform->setType('usuario', PARAM_TEXT);
 		$mform->addRule('usuario','Buscar Archivo:','required');
-		$mform->setDefault('usuario', ' ');
+		$mform->setDefault('usuario', '');
 
 
-		$this->add_action_buttons(false,'buscar');
+		$this->add_action_buttons(true,'buscar');
 
 	}
 }

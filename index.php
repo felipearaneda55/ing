@@ -50,7 +50,7 @@ if ($formulario->is_cancelled ()) {
 	$resultados = $DB->get_records_select ( 'local_proyecto_archivo', $where, array (
 			"%" . $fromform->usuario . "%" 
 	) );
-	//var_dump ( $resultados );
+	//var_dump ( $resultados )
 	foreach ( $resultados as $resultado ) {
 		
 		echo $resultado->id . ' ' . $resultado->titulo;

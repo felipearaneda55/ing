@@ -18,20 +18,20 @@
  *
  * @package local
  * @subpackage proyecto
- * @copyright 2015 Nicolás Díaz Francavila
+ * @copyright 2015 NicolÃ¡s DÃ­az Francavila
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once (dirname ( __FILE__ ) . '/../../config.php'); // obligatorio
 require_once ($CFG->dirroot . '/local/proyecto/buscador.php');
-require_once($CFG->dirroot.'/local/proyecto/tabla.php');
+require_once ($CFG->dirroot . '/local/proyecto/tabla.php');
 
 global $CFG, $OUTPUT, $DB;
-require_login (); //login obligado
+require_login (); // login obligado
 $url = new moodle_url ( '/local/proyecto/index.php' );
 $context = context_system::instance (); // context_system::instance();
 $PAGE->set_context ( $context );
 $PAGE->set_url ( $url );
-$PAGE->set_pagelayout ( 'standard' ); 
+$PAGE->set_pagelayout ( 'standard' );
 
 $title = 'busqueda de archivo';
 $PAGE->set_title ( $title );
@@ -40,31 +40,23 @@ $PAGE->set_heading ( $title );
 echo $OUTPUT->header ();
 echo $OUTPUT->heading ( $title );
 
+$formulario = new texbox (); // creacion de buscador
 
-$buscador = new texbox ( null ); // creacion de buscador
-$buscador->display ();
-
-$resultado= $buscador->get_data();
-
-if ($resultado==null) {
-echo "No se ha ingresado busqueda";
+if ($formulario->is_cancelled ()) {
+	echo 'Usted no ingreso busqueda';
+} else if ($fromform = $formulario->get_data ()) {
+	
+	$where = "titulo like ?";
+	$resultados = $DB->get_records_select ( 'local_proyecto_archivo', $where, array (
+			"%" . $fromform->usuario . "%" 
+	) );
+	//var_dump ( $resultados );
+	foreach ( $resultados as $resultado ) {
+		
+		echo $resultado->id . ' ' . $resultado->titulo;
+	}
+} else {
+	$formulario->display ();
 }
 
-else {
-	$archivo= $resultado->archivo;
-	
-	$busqueda= $DB->get_record_sql("SELECT FROM {local_proyecto_archivo} WHERE
-			    Titulo='$resultado' OR link_archivo='$resultado' OR id='$resultado'");
-	
-	if ($resultado==null ||$resultado==' ')
-		echo "No se poseen archivos";
-	
-	else{
-		echo "Archivo: ". $archivo.'<br/>';
-		$tabla= tablas::armartabla($busqueda);
-		echo html_writer::table($tabla);
-	}
-	
-	}
-	
-	echo $OUTPUT->footer ();
+echo $OUTPUT->footer ();

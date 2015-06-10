@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();    		
 $plugin->pluginname = "local_proyecto";
 $plugin->component = "local_proyecto";
-$plugin->version = "2015052700";
+$plugin->version = "2015061200";
 ?>

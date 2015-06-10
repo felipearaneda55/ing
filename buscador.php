@@ -31,10 +31,10 @@ class texbox extends moodleform {
 		global $CFG;
 
 		$mform = $this->_form ;
-		$mform->addElement('text', 'usuario', 'Buscar Archivo:');
-		$mform->setType('usuario', PARAM_TEXT);
-		$mform->addRule('usuario','Buscar Archivo:','required');
-		$mform->setDefault('usuario', '');
+		$mform->addElement('text', 'archivo', 'Buscar Archivo:');
+		$mform->setType('archivo', PARAM_TEXT);
+		$mform->addRule('archivo','Buscar Archivo:','required');
+		$mform->setDefault('archivo', '');
 
 
 		$this->add_action_buttons(true,'buscar');

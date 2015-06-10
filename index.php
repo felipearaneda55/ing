@@ -44,19 +44,34 @@ $formulario = new texbox (); // creacion de buscador
 
 if ($formulario->is_cancelled ()) {
 	echo 'Usted no ingreso busqueda';
-} else if ($fromform = $formulario->get_data ()) {
-	
-	$where = "titulo like ?";
-	$resultados = $DB->get_records_select ( 'local_proyecto_archivo', $where, array (
-			"%" . $fromform->usuario . "%" 
-	) );
-	//var_dump ( $resultados )
-	foreach ( $resultados as $resultado ) {
-		
-		echo $resultado->id . ' ' . $resultado->titulo;
-	}
-} else {
-	$formulario->display ();
-}
+} 
 
-echo $OUTPUT->footer ();
+else if ($fromform = $formulario->get_data ()) {
+	
+	//$where = "titulo like ?";
+	//$resultados = $DB->get_records_select ( 'local_proyecto_archivo', $where, array (
+	//		"%" . $fromform->usuario . "%" 
+	//) );
+	$busqueda= $fromform->archivo;
+	$resultado =$DB->get_records_sql( "SELECT {files}.filename
+			FROM {files} WHERE {files}.filename like '%$busqueda%'");
+	//var_dump ( $resultados )
+	if ($resultado== null){
+		echo "No se encontraron coincidencias";
+	}
+	else
+	{
+		//echo $resultados->name. "<br/><br/>";
+		$tabla= tablas::armartabla($resultado);
+		echo html_writer::table($tabla);
+	}
+	
+	}
+	
+	else {
+	
+		$formulario->display ();
+	}
+	
+	echo $OUTPUT->footer ();
+	

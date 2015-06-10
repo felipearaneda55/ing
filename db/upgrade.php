@@ -55,9 +55,9 @@ function xmldb_local_proyecto_upgrade($oldversion)
         // Añade campos a tabla local_proyecto_archivo.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('link_archivo', XMLDB_TYPE_CHAR, '10', null, XMLDB_NOTNULL, null, null);
-        $table->add_field('Titulo', XMLDB_TYPE_CHAR, '512', null, null, null, null);
+        $table->add_field('titulo', XMLDB_TYPE_CHAR, '512', null, null, null, null);
         $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
-        
+        $table->add_field('titulo2', XMLDB_TYPE_CHAR, '512', null, null, null, null);
         // Añade llaves a tabla local_proyecto_archivo.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array(
             'id'

@@ -40,38 +40,30 @@ $PAGE->set_heading ( $title );
 echo $OUTPUT->header ();
 echo $OUTPUT->heading ( $title );
 
-$formulario = new texbox (); // creacion de buscador
+$formulario = new textbox (); // creacion de buscador
 
-if ($formulario->is_cancelled ()) {
-	echo 'Usted no ingreso busqueda';
-} 
+if ($fromform = $formulario->get_data () ) {
 
-else if ($fromform = $formulario->get_data ()) {
-	
-	//$where = "titulo like ?";
-	//$resultados = $DB->get_records_select ( 'local_proyecto_archivo', $where, array (
-	//		"%" . $fromform->usuario . "%" 
-	//) );
+
 	$busqueda= $fromform->archivo;
-	$resultado =$DB->get_records_sql( "SELECT {files}.filename
-			FROM {files} WHERE {files}.filename like '%$busqueda%'");
-	//var_dump ( $resultados )
+	$resultado =$DB->get_records_sql( "SELECT {resource}.name
+			FROM {resource} WHERE {resource}.name like '%$busqueda%'");
+
 	if ($resultado== null){
 		echo "No se encontraron coincidencias";
 	}
 	else
 	{
-		//echo $resultados->name. "<br/><br/>";
+
 		$tabla= tablas::armartabla($resultado);
 		echo html_writer::table($tabla);
 	}
-	
-	}
-	
-	else {
-	
-		$formulario->display ();
-	}
-	
-	echo $OUTPUT->footer ();
-	
+
+}
+
+else {
+
+	$formulario->display ();
+}
+
+echo $OUTPUT->footer ();

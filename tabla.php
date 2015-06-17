@@ -33,7 +33,7 @@ class tablas{
 		$tabla->head = array('Archivos');
 		
 		foreach ($archivos as $archivo){
-			$tabla->data[] = array($archivo->filename);
+			$tabla->data[] = array($archivo->name);
 		
 		}
 		

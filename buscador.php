@@ -25,7 +25,7 @@
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->libdir.'/formslib.php');
 
-class texbox extends moodleform {
+class textbox extends moodleform {
 
 	public function definition() {
 		global $CFG;
